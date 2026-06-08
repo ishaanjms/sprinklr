@@ -74,43 +74,18 @@ button {
   width: 28px;
   height: 28px;
   margin-right: 7px;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.brand-mark span {
-  position: absolute;
-  background: #1f2328;
-  width: 7px;
-  height: 15px;
-  border-radius: 8px 8px 0 8px;
-  transform-origin: bottom center;
-}
-
-.brand-mark span:nth-child(1) {
-  left: 13px;
-  top: 4px;
-  transform: rotate(0deg);
-}
-
-.brand-mark span:nth-child(2) {
-  left: 6px;
-  top: 10px;
-  height: 14px;
-  transform: rotate(-50deg);
-}
-
-.brand-mark span:nth-child(3) {
-  left: 16px;
-  top: 10px;
-  height: 14px;
-  transform: rotate(50deg);
-}
-
-.brand-mark span:nth-child(4) {
-  left: 13px;
-  top: 16px;
-  height: 10px;
-  transform: rotate(180deg);
+.brand-mark img {
+  display: block;
+  width: 28px;
+  height: 24px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .tab {
