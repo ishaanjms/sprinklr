@@ -15,8 +15,6 @@ const variantOrder = ["thinking", "chat", "wave", "skeleton", "dots", "muted", "
 const variants = new Set(variantOrder);
 const state = {
   variant: readVariant(),
-  autoplay: !variants.has(window.location.hash.replace("#", "")),
-  cycleTimer: null,
   restartToken: 0,
 };
 
@@ -27,10 +25,6 @@ function readVariant() {
 
 function writeVariant(nextVariant, fromUser = false) {
   state.variant = nextVariant;
-  if (fromUser) {
-    state.autoplay = false;
-    syncAutoplayButton();
-  }
   if (window.location.hash.replace("#", "") !== nextVariant) {
     window.history.replaceState(null, "", `#${nextVariant}`);
   }
@@ -133,27 +127,6 @@ function restartLoadingMotion() {
   renderRows();
 }
 
-function setAutoplay(enabled) {
-  state.autoplay = enabled;
-  window.clearInterval(state.cycleTimer);
-  state.cycleTimer = null;
-
-  if (enabled) {
-    state.cycleTimer = window.setInterval(() => {
-      writeVariant(nextVariant());
-      restartLoadingMotion();
-    }, 3600);
-  }
-
-  syncAutoplayButton();
-}
-
-function syncAutoplayButton() {
-  const button = document.getElementById("toggleAutoplay");
-  button.classList.toggle("is-active", state.autoplay);
-  button.setAttribute("aria-pressed", String(state.autoplay));
-}
-
 function syncVariantPicker() {
   document.querySelectorAll(".animation-option").forEach((button) => {
     const selected = button.dataset.variant === state.variant;
@@ -174,10 +147,6 @@ document.getElementById("cycleVariant").addEventListener("click", () => {
   restartLoadingMotion();
 });
 
-document.getElementById("toggleAutoplay").addEventListener("click", () => {
-  setAutoplay(!state.autoplay);
-});
-
 document.getElementById("restartSimulation").addEventListener("click", () => {
   restartLoadingMotion();
 });
@@ -190,4 +159,3 @@ window.addEventListener("hashchange", () => {
 
 renderRows();
 syncVariantPicker();
-setAutoplay(state.autoplay);
