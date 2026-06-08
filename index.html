@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Agent Builder - Simulations</title>
+    <link rel="stylesheet" href="./styles.css?v=11" />
+  </head>
+  <body>
+    <svg class="sprite" aria-hidden="true">
+      <symbol id="icon-search" viewBox="0 0 24 24">
+        <circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.5" />
+        <path d="m15.5 15.5 5 5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      </symbol>
+      <symbol id="icon-layout" viewBox="0 0 24 24">
+        <path d="M4 4h5v6H4zM4 14h5v6H4zM13 4h3v16h-3zM19 4h1.8v6H19zM19 14h1.8v6H19z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-edit" viewBox="0 0 24 24">
+        <path d="M5 5h9v2H7v10h10v-7h2v9H5z" fill="currentColor" />
+        <path d="m13.5 13.1 1.1-4 4.7-4.7 2 2-4.7 4.7z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-calendar" viewBox="0 0 24 24">
+        <path d="M5 5h14v15H5z" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M8 3v4M16 3v4M5 9h14" fill="none" stroke="currentColor" stroke-width="2" />
+        <path d="M8 12h3v3H8zM13 12h3v3h-3z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-users" viewBox="0 0 24 24">
+        <circle cx="9" cy="8" r="3.2" fill="currentColor" />
+        <circle cx="16.5" cy="8.6" r="2.6" fill="currentColor" />
+        <path d="M3.5 19c.5-4.2 2.2-6.2 5.5-6.2s5 2 5.5 6.2zM14 18.5c.2-2.6 1-4.2 2.9-4.2 2 0 3.2 1.5 3.6 4.2z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-bell" viewBox="0 0 24 24">
+        <path d="M6.7 17.2h10.6l-1.2-2v-4.4A4.2 4.2 0 0 0 12 6.5a4.2 4.2 0 0 0-4.1 4.3v4.4z" fill="currentColor" />
+        <path d="M10 19h4c-.2 1.2-.9 2-2 2s-1.8-.8-2-2zM11 3h2v3h-2z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-filter" viewBox="0 0 24 24">
+        <path d="M4 5h16l-6 7v5.5L10 20v-8z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-more" viewBox="0 0 24 24">
+        <circle cx="6" cy="12" r="1.8" fill="currentColor" />
+        <circle cx="12" cy="12" r="1.8" fill="currentColor" />
+        <circle cx="18" cy="12" r="1.8" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24">
+        <path d="M11 5h2v14h-2zM5 11h14v2H5z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-back" viewBox="0 0 24 24">
+        <path d="M13 6 7 12l6 6M8 12h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-kebab" viewBox="0 0 24 24">
+        <circle cx="12" cy="5" r="1.6" fill="currentColor" />
+        <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+        <circle cx="12" cy="19" r="1.6" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-open" viewBox="0 0 24 24">
+        <path d="M5 5h8v4H9v6h6v-4h4v8H5z" fill="currentColor" />
+        <path d="M13 5h6v6h-3V9.4l-4.5 4.5-1.4-1.4L14.6 8H13z" fill="currentColor" />
+      </symbol>
+      <symbol id="icon-sort" viewBox="0 0 24 24">
+        <path d="M4 6h10M4 11h10M4 16h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+        <path d="M18 5v12m0 0-3-3m3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+      </symbol>
+      <symbol id="icon-spinner" viewBox="0 0 24 24">
+        <path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2.1 2.1M15.6 15.6l2.1 2.1M17.7 6.3l-2.1 2.1M8.4 15.6l-2.1 2.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </symbol>
+    </svg>
+
+    <div class="app-frame">
+      <header class="topbar">
+        <div class="brand-mark" aria-label="Sprinklr">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <div class="tab">
+          <span class="tab-icon">↵</span>
+          <span class="tab-title">AI Agent Builder</span>
+          <span class="tab-close">×</span>
+        </div>
+        <button class="top-plus" aria-label="Add tab">
+          <svg><use href="#icon-plus"></use></svg>
+        </button>
+        <nav class="top-actions" aria-label="Global actions">
+          <button aria-label="Search"><svg><use href="#icon-search"></use></svg></button>
+          <button aria-label="Apps"><svg><use href="#icon-layout"></use></svg></button>
+          <button aria-label="Edit"><svg><use href="#icon-edit"></use></svg></button>
+          <button aria-label="Calendar"><svg><use href="#icon-calendar"></use></svg></button>
+          <button aria-label="Users"><svg><use href="#icon-users"></use></svg></button>
+          <button class="with-dot" aria-label="Notifications"><svg><use href="#icon-bell"></use></svg><span>3</span></button>
+          <button class="avatar" aria-label="Profile"></button>
+        </nav>
+      </header>
+
+      <aside class="rail" aria-label="Primary navigation">
+        <button><span class="rail-dot"></span></button>
+        <button><span class="grid-icon"></span></button>
+        <button><span class="clipboard-icon"></span></button>
+        <button><span class="tools-icon"></span></button>
+        <button><span class="gear-small"></span></button>
+        <button class="active"><span class="wand-icon"></span></button>
+        <button><span class="nodes-icon"></span></button>
+        <button><span class="panel-icon"></span></button>
+        <div class="rail-spacer"></div>
+        <button><span class="chat-icon"></span></button>
+        <button><span class="settings-icon"></span></button>
+      </aside>
+
+      <aside class="section-nav" aria-label="Evaluation navigation">
+        <div class="section-title">
+          <svg><use href="#icon-back"></use></svg>
+          <span>Evaluation</span>
+        </div>
+        <a>Metrics</a>
+        <a>Scenarios</a>
+        <a class="selected">Simulation</a>
+        <a>Generate Q&amp;A</a>
+      </aside>
+
+      <main class="workspace">
+        <div class="page-head">
+          <h1>Simulations</h1>
+          <div class="page-actions">
+            <div class="animation-picker" role="group" aria-label="Loading animation">
+              <button type="button" class="animation-option" data-variant="thinking" aria-label="Thinking dots" title="Thinking dots">
+                <span class="mini-thinking"><i></i><i></i><i></i><i></i></span>
+              </button>
+              <button type="button" class="animation-option" data-variant="chat" aria-label="Chat transition" title="Chat transition">
+                <span class="mini-chat"><i></i><i></i><i></i><i></i></span>
+              </button>
+              <button type="button" class="animation-option" data-variant="wave" aria-label="Faint wave" title="Faint wave">
+                <span class="mini-wave"><i></i><i></i><i></i><i></i></span>
+              </button>
+              <button type="button" class="animation-option" data-variant="skeleton" aria-label="Skeleton bar" title="Skeleton bar">
+                <span class="mini-skeleton"></span>
+              </button>
+              <button type="button" class="animation-option" data-variant="dots" aria-label="Purple dots" title="Purple dots">
+                <span class="mini-purple"><i></i><i></i><i></i></span>
+              </button>
+              <button type="button" class="animation-option" data-variant="muted" aria-label="Muted calculating" title="Muted calculating">
+                <span class="mini-spinner muted"></span>
+              </button>
+              <button type="button" class="animation-option" data-variant="blue" aria-label="Blue calculating" title="Blue calculating">
+                <span class="mini-spinner blue"></span>
+              </button>
+            </div>
+            <button class="square-action" id="cycleVariant" aria-label="Filter" title="Cycle loading state"><svg><use href="#icon-filter"></use></svg></button>
+            <button class="square-action" id="toggleAutoplay" aria-label="More" title="Toggle autoplay"><svg><use href="#icon-more"></use></svg></button>
+            <button class="primary-action" id="restartSimulation"><svg><use href="#icon-plus"></use></svg>Simulation</button>
+          </div>
+        </div>
+
+        <section class="table-shell" aria-label="Simulations">
+          <table>
+            <colgroup>
+              <col class="col-index" />
+              <col class="col-menu" />
+              <col class="col-name" />
+              <col class="col-status" />
+              <col class="col-success" />
+              <col class="col-scenario" />
+              <col class="col-count" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>
+                  <span>Simulation Name</span>
+                  <svg><use href="#icon-sort"></use></svg>
+                </th>
+                <th>Simulation Status</th>
+                <th>Success Rate</th>
+                <th>Scenario Set</th>
+                <th>Number of Scenarios</th>
+              </tr>
+            </thead>
+            <tbody id="simulationRows"></tbody>
+          </table>
+          <div class="table-foot">Showing 10 of 10</div>
+        </section>
+      </main>
+
+      <div class="cursor-mark" aria-hidden="true">
+        <div class="cursor-halo"></div>
+        <svg viewBox="0 0 24 24">
+          <path d="M5.5 3.5 17.8 15l-6.6 1.1-2.7 5.8z" fill="#1f2937" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+    <script src="./script.js"></script>
+  </body>
+</html>
